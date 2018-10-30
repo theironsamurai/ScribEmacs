@@ -486,6 +486,8 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
   "gk" 'org-previous-visible-heading)
 
 
+(define-key evil-normal-state-map [return] 'org-open-at-point-global)
+
 ;; Evil Org Mode
 
 (use-package evil-org
