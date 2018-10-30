@@ -107,11 +107,13 @@
 
 ;; Emacs Defaults
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 (blink-cursor-mode 1)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 'box)
 ;; (setq default-frame-alist
 ;;			'(cursor-color . "orange"))
 ;; (set-cursor-color nil)
+(setq next-line-add-newlines t)
 (global-hl-line-mode -1)
 ;; (delete-selection-mode 1)
 (transient-mark-mode 1)
@@ -153,8 +155,8 @@
   :defer t)
 
 ;; Global settings (defaults)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+(setq doom-themes-enable-bold t    
+      doom-themes-enable-italic t) 
 
 ;; Enable flashing mode-line on errors
 (doom-themes-visual-bell-config)
@@ -173,8 +175,8 @@
 (use-package doom-themes
   :defer t)
 
-;; (use-package borland-blue-theme
-;;   :defer t)
+(use-package borland-blue-theme
+  :defer t)
 
 (use-package gruvbox-theme
   :defer t)
@@ -188,7 +190,25 @@
 (use-package leuven-theme
   :defer t)
 
-;; (load-theme 'spacemacs-light)
+(use-package plan9-theme
+	:defer t)
+
+(use-package color-theme-sanityinc-tomorrow
+	:defer t)
+
+(use-package tango-plus-theme
+	:defer t)
+
+(use-package espresso-theme
+	:defer t)
+
+(use-package faff-theme
+	:defer t)
+
+
+
+
+
 
 ;;; --------------- TRANSPARENCY
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -428,10 +448,11 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 ;; Olitvetti - writing in style
 
 (use-package olivetti
-  :config
-  (setq olivetti-body-width 90))
+  :init
+  (setq olivetti-body-width 80))
 
 (add-hook 'text-mode-hook 'turn-on-olivetti-mode)
+(add-hook 'prog-mode-hook 'turn-on-olivetti-mode)
 
 ;;; DEFT
 ;;;;;;;;;;;;;;;;;
@@ -452,52 +473,52 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 ;; ;;;;;;;;;;;;;;;;; EVIL CONFIG ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package evil
-  :init ;; tweak evil's configuration before loading it
-  (setq evil-search-module 'evil-search)
-  (setq evil-ex-complete-emacs-commands nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  (setq evil-shift-round nil)
-  (setq evil-want-C-u-scroll t)
-	(setq evil-toggle-key "C-q")
-  :config ;; tweak evil after loading it
-  (evil-mode)
-  ;; example how to map a command in normal mode (called 'normal state' in evil)
-  (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
+;; (use-package evil
+;;   :init ;; tweak evil's configuration before loading it
+;;   (setq evil-search-module 'evil-search)
+;;   (setq evil-ex-complete-emacs-commands nil)
+;;   (setq evil-vsplit-window-right t)
+;;   (setq evil-split-window-below t)
+;;   (setq evil-shift-round nil)
+;;   (setq evil-want-C-u-scroll t)
+;; 	(setq evil-toggle-key "C-q")
+;;   :config ;; tweak evil after loading it
+;;   (evil-mode)
+;;   ;; example how to map a command in normal mode (called 'normal state' in evil)
+;;   (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 
-;; remove all keybindings from insert-state keymap, use emacs-state when editing
-(setcdr evil-insert-state-map nil)
+;; ;; remove all keybindings from insert-state keymap, use emacs-state when editing
+;; (setcdr evil-insert-state-map nil)
 
-;; ESC to switch back normal-state
-(define-key evil-insert-state-map [escape] 'evil-force-normal-state)
+;; ;; ESC to switch back normal-state
+;; (define-key evil-insert-state-map [escape] 'evil-force-normal-state)
 
-;;; Evil Keybindings
+;; ;;; Evil Keybindings
 
-(global-set-key (kbd "C-;") 'evil-force-normal-state)
-(global-set-key (kbd "C-u") 'evil-scroll-up)
+;; (global-set-key (kbd "C-;") 'evil-force-normal-state)
+;; (global-set-key (kbd "C-u") 'evil-scroll-up)
 
-;; Evil Org Bindings
-;; (evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
-;; (evil-define-key '(normal visual) org-mode-map
-;; 	"gj" 'org-next-visible-heading
-;; 	"gk" 'org-previous-visible-heading)
+;; ;; Evil Org Bindings
+;; ;; (evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
+;; ;; (evil-define-key '(normal visual) org-mode-map
+;; ;; 	"gj" 'org-next-visible-heading
+;; ;; 	"gk" 'org-previous-visible-heading)
 
 
-(define-key evil-normal-state-map [return] 'org-open-at-point-global)
+;; (define-key evil-normal-state-map [return] 'org-open-at-point-global)
 
-;; Evil Org Mode
+;; ;; Evil Org Mode
 
-(use-package evil-org
-  :ensure t
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+;; (use-package evil-org
+;;   :ensure t
+;;   :after org
+;;   :config
+;;   (add-hook 'org-mode-hook 'evil-org-mode)
+;;   (add-hook 'evil-org-mode-hook
+;;             (lambda ()
+;;               (evil-org-set-key-theme)))
+;;   (require 'evil-org-agenda)
+;;   (evil-org-agenda-set-keys))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;; GENERAL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -505,11 +526,11 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 
 (use-package general
   :config (general-define-key
-    :states '(normal visual insert emacs)
-    :prefix "SPC"
-    :non-normal-prefix "C-c"
-    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-    "SPC" '(helm-M-x :which-key "M-x")
+    ;; :states '(normal visual insert emacs)
+    :prefix "C-c"
+    ;; :non-normal-prefix "C-c"
+    ;; "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
+    ;; "SPC" '(helm-M-x :which-key "M-x")
 		;; Applications
 		"a"   '(:ignore t :which-key "Applications")
 		"ad"  'dired

@@ -2,6 +2,7 @@ backup
 elpa
 packages
 auto-save-list
+eshell
 .cache
 custom.el
 .mc-lists.el
