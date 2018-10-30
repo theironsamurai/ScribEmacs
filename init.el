@@ -514,6 +514,9 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 		"a"   '(:ignore t :which-key "Applications")
 		"ad"  'dired
 	  "an"  'deft
+    ;; -- Shells
+    "aa"  '(ansi-term :which-key "open ansi terminal")
+    "ae"  '(eshell :which-key "open eshell terminal")
 		;; Files
 		"f"   '(:ignore t :which-key "Files")
 		"ff"  '(helm-find-files :which-key "find files")
@@ -539,10 +542,6 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
   	"woo" '(olivetti-mode :which-key "Olivetti Mode")
 		"wom" '(olivetti-toggle-hide-mode-line :which-key "Toggle Mode Line")
 		"wow" '(olivetti-set-width :which-key "Set Width")
-    ;; Terminals
-		"t"   '(:ignore t :which-key "Terminals")
-    "ta"  '(ansi-term :which-key "open ansi terminal")
-    "te"  '(eshell :which-key "open eshell terminal")
 		;; Markdown
 		"m"   '(:ignore t :which-key "Markdown")
 		"mlw" '(markdown-insert-wiki-link :which-key "markdown insert wiki-link")
