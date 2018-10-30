@@ -1,0 +1,9 @@
+backup
+elpa
+packages
+auto-save-list
+.cache
+custom.el
+.mc-lists.el
+*.eld
+

@@ -1,0 +1,13 @@
+#+TITLE: ScribEmacs
+
+A simple Emacs config for a writer who geeks.
+
+Includes the use of:
+
+- use-package
+- newer org-mode
+- markdown-mode
+- General
+- etc...
+
+
