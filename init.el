@@ -8,8 +8,8 @@
 
 ;;; Code:
 
-;; Inhibit Spash Screen: go straight to *scratch*
 
+;; Inhibit Spash Screen: go straight to *scratch*
 (setq inhibit-splash-screen t)
 
 ;; Custom File: don't dirty up me init!
@@ -205,7 +205,6 @@
        100)
       (set-frame-parameter nil 'alpha '(100 100))
     (set-frame-parameter nil 'alpha '(90 60))))
-(global-set-key (kbd "C-c 1") 'toggle-transparency)
 
 ;; Set transparency of emacs
 (defun transparency (arg &optional active)
@@ -218,7 +217,6 @@
                     (t              `(,(car old) ,arg)))))
     (if elt (setcdr elt new) (push `(alpha ,@new) default-frame-alist))
     (set-frame-parameter nil 'alpha new)))
-(global-set-key (kbd "C-c 2") 'transparency)
 
 (set-frame-parameter (selected-frame) 'alpha '(100 100))
 
@@ -480,10 +478,10 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 (global-set-key (kbd "C-u") 'evil-scroll-up)
 
 ;; Evil Org Bindings
-(evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
-(evil-define-key '(normal visual) org-mode-map
-  "gj" 'org-next-visible-heading
-  "gk" 'org-previous-visible-heading)
+;; (evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
+;; (evil-define-key '(normal visual) org-mode-map
+;; 	"gj" 'org-next-visible-heading
+;; 	"gk" 'org-previous-visible-heading)
 
 
 (define-key evil-normal-state-map [return] 'org-open-at-point-global)
@@ -555,11 +553,10 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 		"li" '(org-insert-link :which-key "org-insert-link")
 		"ls" '(org-store-link :which-key "org-store-link")
 		"o"  '(org-open-at-point-global :which-key "org-open-at-point")
-		;; Themes & Transparency
-		"T"   '(:ignore t :which-key "Themes")
-		"Th"  '(helm-themes :which-key "helm theme")
-		"TT"  '(toggle-transparency :which-key "Toggle Transparency")
-		"Tv"  '(transparency :which-key "Transparency Value")
+		;; Transparency
+		"1"  '(helm-themes :which-key "helm theme")
+		"2"  '(toggle-transparency :which-key "Toggle Transparency")
+		"3"  '(transparency :which-key "Transparency Value")
 		;; evaluate
 		"e"   '(:ignore t :which-key "Eval")
 		"eb"  '(eval-buffer :which-key "eval buffer")
@@ -579,6 +576,10 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 		"qib" '(ispell-buffer :which-key "iSpell Buffer")
 		"qir" '(ispell-region :which-key "iSpell Region")
 		"qim" '(ispell-minor-mode :which-key "iSpell Minor Mode")
+		;; Region
+		"r"   '(:ignore t :which-key "Region")
+		"rc"  '(comment-region :which-key "Comment Region")
+		"ru"  '(uncomment-region :which-key "Uncomment Region")
 		;; LISP
 		;; "l"   '(:ignore t :which-key "Lisp menu")
 		;; "ls"  '(smartparens-strict-mode :which-key "SmartParens Strict Mode")
