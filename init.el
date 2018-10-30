@@ -454,36 +454,50 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 ;; ;;;;;;;;;;;;;;;;; EVIL CONFIG ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package evil
-;;   :init ;; tweak evil's configuration before loading it
-;;   (setq evil-search-module 'evil-search)
-;;   (setq evil-ex-complete-emacs-commands nil)
-;;   (setq evil-vsplit-window-right t)
-;;   (setq evil-split-window-below t)
-;;   (setq evil-shift-round nil)
-;;   (setq evil-want-C-u-scroll t)
-;;   :config ;; tweak evil after loading it
-;;   (evil-mode)
-;;   ;; example how to map a command in normal mode (called 'normal state' in evil)
-;;   (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
+(use-package evil
+  :init ;; tweak evil's configuration before loading it
+  (setq evil-search-module 'evil-search)
+  (setq evil-ex-complete-emacs-commands nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (setq evil-shift-round nil)
+  (setq evil-want-C-u-scroll t)
+	(setq evil-toggle-key "C-q")
+  :config ;; tweak evil after loading it
+  (evil-mode)
+  ;; example how to map a command in normal mode (called 'normal state' in evil)
+  (define-key evil-normal-state-map (kbd ", w") 'evil-window-vsplit))
 
-;; ;; remove all keybindings from insert-state keymap, use emacs-state when editing
-;; (setcdr evil-insert-state-map nil)
+;; remove all keybindings from insert-state keymap, use emacs-state when editing
+(setcdr evil-insert-state-map nil)
 
-;; ;; ESC to switch back normal-state
-;; (define-key evil-insert-state-map [escape] 'evil-force-normal-state)
+;; ESC to switch back normal-state
+(define-key evil-insert-state-map [escape] 'evil-force-normal-state)
 
-;; ;;; Evil Keybindings
+;;; Evil Keybindings
 
-;; (global-set-key (kbd "C-;") 'evil-force-normal-state)
-;; (global-set-key (kbd "C-u") 'evil-scroll-up)
+(global-set-key (kbd "C-;") 'evil-force-normal-state)
+(global-set-key (kbd "C-u") 'evil-scroll-up)
 
-;; ;; Evil Org Bindings
-;; (evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
-;; (evil-define-key '(normal visual) org-mode-map
-;;   "gj" 'org-next-visible-heading
-;;   "gk" 'org-previous-visible-heading)
+;; Evil Org Bindings
+(evil-define-key 'normal org-mode-map "<tab>" 'org-cycle)
+(evil-define-key '(normal visual) org-mode-map
+  "gj" 'org-next-visible-heading
+  "gk" 'org-previous-visible-heading)
 
+
+;; Evil Org Mode
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;; GENERAL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -491,15 +505,15 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
 
 (use-package general
   :config (general-define-key
-    ;; :states '(normal visual insert emacs)
-    :prefix "C-c"
-    ;; :non-normal-prefix "C-t"
+    :states '(normal visual insert emacs)
+    :prefix "SPC"
+    :non-normal-prefix "C-c"
     "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-    ;; "SPC" '(helm-M-x :which-key "M-x")
+    "SPC" '(helm-M-x :which-key "M-x")
 		;; Applications
-		;; "a"   '(:ignore t :which-key "Applications")
-		;; "ad"  'dired
-	  ;; "d"  'deft
+		"a"   '(:ignore t :which-key "Applications")
+		"ad"  'dired
+	  "an"  'deft
 		;; Files
 		"f"   '(:ignore t :which-key "Files")
 		"ff"  '(helm-find-files :which-key "find files")
@@ -517,6 +531,7 @@ helm-ag-command-option "--path-to-ignore ~/.agignore"))
     "wk"  '(windmove-up :which-key "move up")
     "wj"  '(windmove-down :which-key "move bottom")
     "w/"  '(split-window-right :which-key "split right")
+		"ww"  '(other-window :which-key "other window")
     "wb"  '(split-window-below :which-key "split bottom")
     "wx"  '(delete-window :which-key "delete window")
 		"wd"  '(delete-other-windows :which-key "delete other windows")
